@@ -31,13 +31,13 @@ app.use(express.bodyParser());
 app.use(express.static(__dirname + '/public'));
 
 // Register partials
-var partials = "./views/partials/";
-fs.readdirSync(partials).forEach(function (file) {
-    var source = fs.readFileSync(partials + file, "utf8"),
-        partial = /(.+)\.html/.exec(file).pop();
+// var partials = "./views/partials/";
+// fs.readdirSync(partials).forEach(function (file) {
+//     var source = fs.readFileSync(partials + file, "utf8"),
+//         partial = /(.+)\.html/.exec(file).pop();
 
-    Handlebars.registerPartial(partial, source);
-});
+//     Handlebars.registerPartial(partial, source);
+// });
 
 // mongo.Db.connect(mongoUri, function (err, db) {
 //   db.collection('mydocs', function(er, collection) {
