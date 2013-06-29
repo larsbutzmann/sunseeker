@@ -1,11 +1,8 @@
-// The data model
+var mongoose = require('mongoose');
 
-var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
-
-var noteSchema = new Schema({
+var Note = new mongoose.Schema({
     postdate: {type: Date, default: Date.now},
     text: {type: String, default: ''}
 });
 
-module.exports = mongoose.model('Note', noteSchema);
+module.exports = mongoose.model('Note', Note);

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sunseeker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Le styles -->
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="css/bootstrap-responsive.css">
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-static-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="">Sunseeker</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="">Home</a></li>
+              <li><a href="">Data</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row-fluid spacer">
+        <div class="span12">
+          <div class="center">
+              <input id="address" type="text" class="search-query" placeholder="Enter city">
+          </div>
+        </div>
+      </div>
+      <div id="content" class="row">
+        <div class="span3">
+          <div id="note">
+            <form id="addNote" action="#">
+              <label for="text">Text: </label><textarea id="text" type="text" row="3"></textarea>
+              <button id="add" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+        <div class="span9">
+          <div id="notes">
+            <h1>Notes</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container fill">
+      <div class="row-fluid fill spacer">
+        <div id="maps" class="span10 offset1">
+          <div id="map_canvas"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script id="noteTemplate" type="text/template">
+    <p><p><b><%= text %></b></p></p>
+    <p><%= $.format.date( new Date( postdate ), 'H:mm d. MMM yyyy' ) %></p>
+    <button class="btn delete">Delete</button>
+  </script>
+
+  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+  <script src="js/lib/jquery.js"></script>
+  <script src="js/lib/jquery.dateFormat-1.0.js"></script>
+  <script src="js/lib/underscore.js"></script>
+  <script src="js/lib/backbone.js"></script>
+  <script src="js/lib/bootstrap.js"></script>
+  <script src="js/custom/maps.js"></script>
+  <script src="js/models/note.js"></script>
+  <script src="js/collections/todo.js"></script>
+  <script src="js/views/note.js"></script>
+  <script src="js/views/todo.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
