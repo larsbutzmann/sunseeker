@@ -13,7 +13,6 @@ exports.getNotes = function(request, response) {
 
 // insert new note
 exports.createNote = function(request, response) {
-    console.log(request.body)
     var note = new NoteModel({
         text: request.body.text
     });

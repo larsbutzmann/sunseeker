@@ -37,19 +37,20 @@ function initialize() {
 }
 
 function handleNoGeolocation(errorFlag) {
+  var content, options, infowindow;
   if (errorFlag) {
-    var content = 'Error: The Geolocation service failed.';
+    content = 'Error: The Geolocation service failed.';
   } else {
-    var content = 'Error: Your browser doesn\'t support geolocation.';
+    content = 'Error: Your browser doesn\'t support geolocation.';
   }
 
-  var options = {
+  options = {
     map: map,
     position: new google.maps.LatLng(60, 105),
     content: content
   };
 
-  var infowindow = new google.maps.InfoWindow(options);
+  infowindow = new google.maps.InfoWindow(options);
   map.setCenter(options.position);
 }
 
