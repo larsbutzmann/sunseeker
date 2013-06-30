@@ -10,7 +10,7 @@ var app = express();
 
 // Configure server
 app.configure(function() {
-  app.set('views', __dirname + '/site');
+  app.set('views', __dirname + '/site/views');
   app.set('view engine', 'jade');
   app.use(express.static(__dirname + '/site'));
   app.use(express.cookieParser());
@@ -39,20 +39,23 @@ mongoose.connect(mongoUri, function (err, res) {
 });
 
 // Routes
-app.get('/api', function(request, response) {
+app.get('/api', function (req, res) {
   response.send('API is running');
 });
 
-app.get('/jade', function (req, res) {
-  res.render('index',
-  { title : 'Home' }
-  )
-})
+var users = [
+    { id: 1, username: 'lars', password: '1234', email: 'bob@example.com' }
+  , { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com' }
+];
 
-// app.get('/', function(req, res){
-//   console.log("here");
-//   res.render('index');
-// });
+app.get('/', ensureAuthenticated, function (req, res) {
+  console.log(req.user);
+  res.render('index', {
+    title: 'Sunseeker',
+    active: 'home',
+    user: req.user
+  });
+});
 
 function findById(id, fn) {
   var idx = id - 1;
@@ -90,33 +93,37 @@ passport.deserializeUser(function(id, done) {
 });
 
 passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ username: username }, function(err, user) {
-      if (err) { return done(err); }
-      if (!user) {
-        return done(null, false, { message: 'Incorrect username.' });
-      }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
+  function (username, password, done) {
+    // asynchronous verification, for effect...
+    process.nextTick(function () {
+
+      // Find the user by username.  If there is no user with the given
+      // username, or the password is not correct, set the user to `false` to
+      // indicate failure and set a flash message.  Otherwise, return the
+      // authenticated `user`.
+      findByUsername(username, function(err, user) {
+        if (err) { return done(err); }
+        if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
+        if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
+        return done(null, user);
+      });
     });
   }
 ));
 
-app.get('/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true })
-);
+app.get('/login', function (req, res) {
+  res.render('login');
+});
 
 app.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true })
+    failureRedirect: '/login',
+    failureFlash: false
+  }), function (req, res) {
+    res.redirect('/');
+  }
 );
 
-app.get('/logout', function(req, res){
+app.get('/logout', function (req, res){
   req.logout();
   res.redirect('/');
 });

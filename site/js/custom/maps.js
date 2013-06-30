@@ -1,14 +1,26 @@
-var map,
-  geocoder;
-
 setTimeout(function () {
   window.scrollTo(0, 1);
 }, 1000);
 
+$("#rate").click(function() {
+  $("#myModal").modal();
+});
+
+$("#slider").slider({
+  min: 0,
+  max: 10,
+  step: 1,
+  orientation: "horizontal",
+  value: 5
+});
+
+var map,
+  geocoder;
+
 function initialize() {
   var mapOptions = {
     zoom: 8,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.TERRAIN
   };
   geocoder = new google.maps.Geocoder();
   map = new google.maps.Map(document.getElementById('map_canvas'),
@@ -20,11 +32,23 @@ function initialize() {
       var pos = new google.maps.LatLng(position.coords.latitude,
                                        position.coords.longitude);
 
-      var infowindow = new google.maps.InfoWindow({
+      var cricleOptions = {
+        strokeColor: '#FF0000',
+        strokeOpacity: 1,
+        strokeWeight: 4,
+        fillOpacity: 0,
         map: map,
-        position: pos,
-        content: 'Location found using HTML5.'
-      });
+        center: pos,
+        radius: 40000/mapOptions.zoom
+      };
+
+      var iAmHereCircle = new google.maps.Circle(cricleOptions);
+
+      // var infowindow = new google.maps.InfoWindow({
+      //   map: map,
+      //   position: pos,
+      //   content: 'Location found using HTML5.'
+      // });
 
       map.setCenter(pos);
     }, function() {

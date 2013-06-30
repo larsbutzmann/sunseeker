@@ -1,0 +1,24 @@
+div.navbar.navbar-inverse.navbar-static-top
+  div.navbar-inner
+    div.container
+      a.btn.btn-navbar(data-toggle="collapse", data-target=".nav-collapse")
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.brand Sunseeker
+      div.nav-collapse.collapse.navbar-responsive-collapse
+        ul.nav
+          - var obj = { 'home':'Home', 'rate':'Rate' }
+            - each val, key in obj
+              - if (active == key)
+                li.active
+                  a(id="#{key}", href='javascript:void(0)') #{val}
+              - else
+                li
+                  a(id="#{key}", href='javascript:void(0)') #{val}
+        - if (user)
+          ul.nav.pull-right
+            li
+              a(href='/logout') Logout
+          p.nav.navbar-text.pull-right Logged in as &nbsp;
+            strong #{user.username}

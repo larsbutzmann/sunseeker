@@ -1,0 +1,22 @@
+!!!5
+html
+  head
+    include includes/head
+
+  body
+    include includes/header
+
+    div.container
+      div.center.spacer
+        form(action="/login", method="post")
+          div
+            label(for="username") Username:
+            input(type="text", name="username")
+          div
+            label(for="password") Password:
+            input(type="password", name="password")
+          div
+            input(type="submit", value="Submit").btn
+
+    include includes/footer
+    include includes/scripts
