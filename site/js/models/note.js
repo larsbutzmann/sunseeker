@@ -6,7 +6,7 @@ app.Note = Backbone.Model.extend({
         postdate: 'Unknown'
     },
 
-    parse: function( response ) {
+    parse: function(response) {
         response.id = response._id;
         return response;
     }
