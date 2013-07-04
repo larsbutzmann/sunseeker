@@ -1,0 +1,41 @@
+!!!5
+html
+  head
+    include includes/head
+
+  body
+    include includes/header
+
+    div.container
+      div.center.spacer
+        - function isEmptyObject(obj) {
+        -      var name;
+        -      for (name in obj) {
+        -        return false;
+        -      }
+        -      return true;
+        -    }
+        - if (isEmptyObject(errors) == false)
+          div.alert
+            button.btn.close(data-dismiss="alert")
+            p
+              strong The following errors occured!
+            - each error in errors
+              p #{error.msg}
+
+        form(action="/register", method="post")
+          div
+            label(for="username") Username:
+            input(type="text", name="username")
+          div
+            label(for="password") Password:
+            input(type="password", name="password")
+          div
+            label(for="password_confirmation") Confirm Password:
+            input(type="password", name="password_confirmation")
+          div
+            input(type="submit", value="Cancel").btn
+            input(type="submit", value="Register").btn.btn-primary
+
+    include includes/footer
+    include includes/scripts

@@ -6,13 +6,18 @@ $("#rate").click(function() {
   $("#myModal").modal();
 });
 
-$("#slider").slider({
-  min: 0,
-  max: 10,
-  step: 1,
-  orientation: "horizontal",
-  value: 5
+$(".box").click(function() {
+  console.log(this);
+  $(this).css("background-color", "green");
 });
+
+// $("#slider").slider({
+//   min: 0,
+//   max: 10,
+//   step: 1,
+//   orientation: "horizontal",
+//   value: 5
+// });
 
 var map,
   geocoder;

@@ -24,6 +24,11 @@ input[type='text'],input[type='number'],textarea {
     font-size: 16px;
 }
 
+.box {
+    margin: 2px;
+    border: 1px solid;
+}
+
 /* note */
 .noteContainer {
     outline: 1px solid #aaa;

@@ -1,5 +1,6 @@
 var application_root = __dirname,
     express = require("express"),
+    expressValidator = require('express-validator'),
     mongoose = require('mongoose'),
     passport = require('passport'),
     jade = require('jade'),
@@ -15,6 +16,7 @@ app.configure(function() {
   app.use(express.static(__dirname + '/site'));
   app.use(express.cookieParser());
   app.use(express.bodyParser());
+  app.use(expressValidator());
   app.use(express.session({ secret: 'keyboard cat' }));
   app.use(passport.initialize());
   app.use(passport.session());
@@ -44,12 +46,11 @@ app.get('/api', function (req, res) {
 });
 
 var users = [
-    { id: 1, username: 'lars', password: '1234', email: 'bob@example.com' }
-  , { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com' }
+    { id: 1, username: 'lars', password: '1234', email: 'bob@example.com' },
+    { id: 2, username: 'joe', password: 'birthday', email: 'joe@example.com' }
 ];
 
 app.get('/', ensureAuthenticated, function (req, res) {
-  console.log(req.user);
   res.render('index', {
     title: 'Sunseeker',
     active: 'home',
@@ -113,6 +114,29 @@ passport.use(new LocalStrategy(
 
 app.get('/login', function (req, res) {
   res.render('login');
+});
+
+app.get('/register', function (req, res) {
+  res.render('register');
+});
+
+app.post('/register', function (req, res) {
+  req.assert('username', 'Username is required').notEmpty();
+  req.assert('password', 'Password is too short').len(6, 20);
+  req.assert('password', 'Passwords do not match').equals(req.body["password_confirmation"]);
+
+  var errors = req.validationErrors();
+
+
+
+  if (!errors){
+    res.redirect('/login');
+  } else {
+    res.render('register', {
+      message: '',
+      errors: errors
+    });
+  }
 });
 
 app.post('/login', passport.authenticate('local', {

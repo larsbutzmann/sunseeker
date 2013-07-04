@@ -10,7 +10,8 @@
     "jade": ">= 0.32.0",
     "mongoose": ">= 3.6.13",
     "passport": ">= 0.1.17",
-    "passport-local": ">= 0.1.6"
+    "passport-local": ">= 0.1.6",
+    "express-validator": "0.6.0"
   },
   "engines": {
     "node": "0.10.x",
