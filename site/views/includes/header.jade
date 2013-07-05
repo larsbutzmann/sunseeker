@@ -14,8 +14,9 @@ div.navbar.navbar-inverse.navbar-static-top
                 li.active
                   a(id="#{key}", href='javascript:void(0)') #{val}
               - else
-                li
-                  a(id="#{key}", href='javascript:void(0)') #{val}
+                - if (user)
+                  li
+                    a(id="#{key}", href='javascript:void(0)') #{val}
         - if (user)
           ul.nav.pull-right
             li

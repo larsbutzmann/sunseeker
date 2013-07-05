@@ -11,6 +11,10 @@ $(".box").click(function() {
   $(this).css("background-color", "green");
 });
 
+$(".modal-footer").click(function() {
+  $(".collapse").collapse("hide");
+});
+
 // $("#slider").slider({
 //   min: 0,
 //   max: 10,
@@ -25,6 +29,14 @@ var map,
 function initialize() {
   var mapOptions = {
     zoom: 8,
+    panControl: false,
+    zoomControl: false,
+    scaleControl: false,
+    streetViewControl: false,
+    mapTypeControl: false,
+    mapTypeControlOptions: {
+      style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+    },
     mapTypeId: google.maps.MapTypeId.TERRAIN
   };
   geocoder = new google.maps.Geocoder();
@@ -44,10 +56,16 @@ function initialize() {
         fillOpacity: 0,
         map: map,
         center: pos,
-        radius: 40000/mapOptions.zoom
+        radius: 3000
       };
 
-      var iAmHereCircle = new google.maps.Circle(cricleOptions);
+      var marker = new google.maps.Marker({
+        position: pos,
+        map: map,
+        title: 'My position'
+      });
+
+      // var iAmHereCircle = new google.maps.Circle(cricleOptions);
 
       // var infowindow = new google.maps.InfoWindow({
       //   map: map,
@@ -62,6 +80,33 @@ function initialize() {
   } else {
     // Browser doesn't support Geolocation
     handleNoGeolocation(false);
+  }
+
+  setMarkers(map);
+}
+
+var suns = [
+  [52.80, 13.08],
+  [52.60, 13.28],
+  [52.30, 12.98]
+];
+
+function setMarkers(map) {
+  var image = {
+    url: 'img/sun.png',
+    size : new google.maps.Size(64, 64),
+    origin: new google.maps.Point(0, 0),
+    anchor: new google.maps.Point(0, 32)
+  };
+
+  for (var i = 0; i < suns.length; i++) {
+    var s = suns[i];
+    var myLatLng = new google.maps.LatLng(s[0], s[1]);
+    var marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      icon: image
+    });
   }
 }
 
