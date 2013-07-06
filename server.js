@@ -41,7 +41,7 @@ mongoose.connect(mongoUri, function (err, res) {
   }
 });
 
-var UserModel = require('./model.js');
+var UserModel = require('./model/user.js');
 
 // Setup authentification
 passport.use(new LocalStrategy(UserModel.authenticate()));

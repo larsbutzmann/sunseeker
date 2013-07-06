@@ -1,6 +1,6 @@
 var passport = require('passport'),
     api = require("./api.js");
-    UserModel = require('./model.js');
+    UserModel = require('./model/user.js');
 
 module.exports = function (app) {
 
@@ -61,14 +61,17 @@ module.exports = function (app) {
     res.redirect('/');
   });
 
+  app.get('/debug', function(req, res) {
+    res.render('debug', { });
+  });
+
   // API
   app.get('/api', function (req, res) {
     response.send('API is running');
   });
-  // app.get('/api/notes', api.getNotes);
-  // app.post('/api/notes', api.createNote);
+  app.get('/api/weather', api.getWeather);
+  app.post('/api/weather', api.postWeather);
   // app.get('/api/notes/:id', api.getNote);
   // app.put('/api/notes/:id', api.updateNote);
   // app.delete('/api/notes/:id', api.deleteNote);
-
 }

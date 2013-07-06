@@ -1,0 +1,17 @@
+!!!5
+html
+  head
+    include includes/head
+
+  body
+    include includes/header
+    include includes/modal
+    div.container.spacer.center
+      a#create-data.btn.btn-primary(href="javascript:void(0)") Create data
+    include includes/content
+    include includes/footer
+
+    script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true')
+    include includes/scripts
+    script(type='text/javascript', src='js/custom/maps.js')
+    script(type='text/javascript', src='js/lib/jquery.dateFormat-1.0.js')
