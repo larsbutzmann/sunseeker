@@ -22,12 +22,13 @@ function initialize() {
     // Try HTML5 geolocation
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
+            console.log(position);
             var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
             var image = {
                 url: 'img/iamhere.png',
-                size : new google.maps.Size(64, 64),
-                anchor: new google.maps.Point(32, 64)
+                size : new google.maps.Size(32, 32),
+                anchor: new google.maps.Point(16, 32)
             };
 
             var marker = new google.maps.Marker({
@@ -36,6 +37,18 @@ function initialize() {
                 title: 'My position',
                 icon: image
             });
+
+            // var iAmHere = {
+            //     strokeColor: '#0000FF',
+            //     strokeOpacity: 1,
+            //     strokeWeight: 10,
+            //     fillColor: '#0000FF',
+            //     fillOpacity: 1,
+            //     map: map,
+            //     center: pos,
+            //     radius: 100
+            // };
+            // cityCircle = new google.maps.Circle(iAmHere);
 
             map.setCenter(pos);
         }, function() {
@@ -105,6 +118,8 @@ function setMarkers(map) {
         var marker = new google.maps.Marker({
             position: myLatLng,
             map: map,
+            cursor: myLatLng.toString(),
+            title: myLatLng.toString(),
             icon: image
         });
     }
