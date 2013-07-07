@@ -1,3 +1,10 @@
+if(process.env.NODETIME_ACCOUNT_KEY) {
+  require('nodetime').profile({
+    accountKey: process.env.NODETIME_ACCOUNT_KEY,
+    appName: 'Sunseeker'
+  });
+}
+
 var application_root = __dirname,
     express = require("express"),
     expressValidator = require('express-validator'),

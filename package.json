@@ -2,6 +2,7 @@
   "name": "Sunseeker",
   "version": "0.0.1",
   "dependencies": {
+    "nodetime": ">= 0.8.13",
     "express": ">= 3.3.1",
     "jade": ">= 0.32.0",
     "mongoose": ">= 3.6.13",
