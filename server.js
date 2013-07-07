@@ -28,11 +28,11 @@ app.configure(function() {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(flash());
-  app.use(express.logger());
+  // app.use(express.logger());
   app.use(express.methodOverride());
   app.use(app.router);
   //Show all errors in development
-  app.use(express.errorHandler({dumpExceptions: true, showStack: true}));
+  // app.use(express.errorHandler({dumpExceptions: true, showStack: true}));
 });
 
 // MongoDB
