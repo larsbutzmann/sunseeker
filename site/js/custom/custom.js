@@ -7,7 +7,14 @@ $("#rate").click(function() {
 });
 
 $(".box").click(function() {
-    $(this).css("background-color", "green");
+    isSelected = this.getAttribute("selected");
+    if (isSelected === "true") {
+        this.setAttribute("selected", "false");
+        $(this).css("background-color", "white");
+    } else {
+        this.setAttribute("selected", "true");
+        $(this).css("background-color", "green");
+    }
 });
 
 $(".modal-footer").click(function() {

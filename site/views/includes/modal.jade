@@ -6,12 +6,14 @@ div#myModal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="myMod
   div.modal-body
     div.center
       div.row-fluid
-        div.span2.box cold
-        div.span2.box snow
-        div.span2.box wet
-        div.span2.box windy
-        div.span2.box warm
-        div.span2.box hot
+        div.span2.offset2.box(selected="false")
+          img(src="img/snow.png")
+        div.span2.box(selected="false")
+          img(src="img/rain.png")
+        div.span2.box(selected="false")
+          img(src="img/storm.png")
+        div.span2.box(selected="false")
+          img(src="img/sunny.png")
 
   div.modal-footer
     div.center
