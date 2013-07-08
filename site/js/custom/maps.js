@@ -149,13 +149,15 @@ function handleNoGeolocation(errorFlag) {
         content = 'Error: Your browser doesn\'t support geolocation.';
     }
 
+    alert("Bitte erlauben sie dem Browser die Erkennung");
+
     options = {
         map: map,
-        position: new google.maps.LatLng(60, 105),
+        position: new google.maps.LatLng(53.5, 10),
         content: content
     };
 
-    infowindow = new google.maps.InfoWindow(options);
+    // infowindow = new google.maps.InfoWindow(options);
     map.setCenter(options.position);
 }
 
