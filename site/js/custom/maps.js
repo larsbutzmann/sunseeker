@@ -97,7 +97,7 @@ function loadWeatherData() {
     $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: "/data",
+        url: "/weatherdata",
         success: function (weatherData) {
             var seenStations = [];
             for (var i = 0; i < weatherData.length; i++) {

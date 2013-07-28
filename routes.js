@@ -1,7 +1,7 @@
 var passport = require('passport'),
   api = require("./api.js"),
   UserModel = require('./model/user.js'),
-  XMLHttpRequest = require("./xmlhttprequest").XMLHttpRequest,
+  XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest,
   parseString = require('xml2js').parseString;
 
 module.exports = function (app) {
@@ -76,7 +76,7 @@ module.exports = function (app) {
     });
   });
 
-  app.get('/data', function(req, res) {
+  app.get('/weatherdata', function(req, res) {
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function() {
