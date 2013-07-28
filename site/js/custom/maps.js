@@ -94,28 +94,30 @@ function loadWeatherData() {
         "BKN": imageScatteredClouds, "OVC": imageCloudy, "RAIN": imageRain
     };
 
-    var seenStations = [];
-
     $.ajax({
         type: 'GET',
         dataType: 'json',
         url: "/data",
         success: function (weatherData) {
+            var seenStations = [];
             for (var i = 0; i < weatherData.length; i++) {
+
                 var data = weatherData[i];
                 var metarData = parseMETAR(data.raw_text);
+                var myLatLng = new google.maps.LatLng(data.latitude, data.longitude);
+
                 if (metarData.clouds === null && metarData.weather === null) {
                     metarData.clouds = [{abbreviation: "CLR"}];
                 }
-                var myLatLng = new google.maps.LatLng(data.latitude, data.longitude);
-                if (!seenStations.in_array(data.station)) {
+
+                if (!seenStations.in_array(data.station_id)) {
                     var marker = new google.maps.Marker({
                         position: myLatLng,
                         map: map,
                         icon: (metarData.weather === null) ? imageTypes[metarData.clouds[0].abbreviation] : imageTypes["RAIN"]
                     });
                 }
-                seenStations.push_unique(metarData.station);
+                seenStations.push_unique(data.station_id);
             }
         }
     });

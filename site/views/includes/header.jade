@@ -4,9 +4,10 @@ div.pure-u#menu
   div.pure-menu.pure-menu-open
     a.pure-menu-heading(href="/") Sunseeker
     ul
-      div.l-vbox
-        div.pure-form
-          input.search-query#address(type="text", size="15", placeholder="Enter city")
+      - if (user)
+        div.l-vbox
+          div.pure-form
+            input.search-query#address(type="text", size="15", placeholder="Enter city")
       - var obj = { 'home':'Home', 'rate':'Rate' }
         - each val, key in obj
           - if (active == key)
