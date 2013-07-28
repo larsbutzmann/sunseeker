@@ -2,8 +2,11 @@ setTimeout(function () {
     window.scrollTo(0, 1);
 }, 1000);
 
+var l;
+
 $("#rate").click(function() {
     $("#myModal").modal();
+    $("#menuLink").click();
 });
 
 $(".box").click(function() {
@@ -17,18 +20,20 @@ $(".box").click(function() {
     }
 });
 
-$(".modal-footer").click(function() {
-    $(".collapse").collapse("hide");
-});
-
 $("#create-data").click(function() {
     addMarker();
 });
 
-// $("#slider").slider({
-//   min: 0,
-//   max: 10,
-//   step: 1,
-//   orientation: "horizontal",
-//   value: 5
-// });
+/**
+ * Basic data structure functions
+ */
+
+Array.prototype.in_array = function (value) {
+    return (this.indexOf(value) !== -1);
+};
+
+Array.prototype.push_unique = function (value) {
+  if (!this.in_array(value)) {
+    this.push(value);
+  }
+};

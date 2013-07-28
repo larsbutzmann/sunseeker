@@ -1,21 +1,28 @@
-div#myModal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
-  div.modal-header
-    button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
-    h3 Rate the weather
+div.pure-u-1
+  div#myModal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+    div.modal-header
+      h3#myModalLabel Rate the Weather
 
-  div.modal-body
-    div.center
-      div.row-fluid
-        div.span2.offset2.box(selected="false")
-          img(src="img/snow.png")
-        div.span2.box(selected="false")
-          img(src="img/rain.png")
-        div.span2.box(selected="false")
-          img(src="img/storm.png")
-        div.span2.box(selected="false")
-          img(src="img/sunny.png")
+    div.modal-body
+      div.pure-g-r
+        div.pure-u-1-4.l-centered(selected="false")
+          div.box
+            img(src="img/snow.png")
+        div.pure-u-1-4.l-centered(selected="false")
+          div.box
+            img(src="img/rain.png")
+        div.pure-u-1-4.l-centered(selected="false")
+          div.box
+            img(src="img/storm.png")
+        div.pure-u-1-4.l-centered(selected="false")
+          div.box
+            img(src="img/sunny.png")
 
-  div.modal-footer
-    div.center
-      button.btn.pull-left.span2(type="button", data-dismiss="modal", aria-hidden="true") Close
-      button.btn.btn-primary.pull-right.span2(type="button", data-dismiss="modal", aria-hidden="true") Save
+    div.modal-footer
+      div.pure-g-r
+        div.pure-u-1-2
+          div.l-box.l-centered
+            button.pure-button(type="button", data-dismiss="modal", aria-hidden="true") Close
+        div.pure-u-1-2
+          div.l-box.l-centered
+            button.pure-button.pure-button-primary(type="button", data-dismiss="modal", aria-hidden="true") Submit

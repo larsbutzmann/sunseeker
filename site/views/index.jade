@@ -4,11 +4,11 @@ html
     include includes/head
 
   body
-    include includes/header
-    include includes/modal
-    include includes/content
-    include includes/footer
+    div.pure-g-r#layout
+      include includes/header
+    include includes/map
+      include includes/modal
 
-    script(src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true')
+    script(type='text/javascript', src='https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true')
     include includes/scripts
     script(type='text/javascript', src='js/custom/maps.js')

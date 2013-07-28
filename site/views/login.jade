@@ -4,22 +4,24 @@ html
     include includes/head
 
   body
-    include includes/header
+    div.pure-g-r#layout
+      include includes/header
 
-    div.container
-      div.center.spacer
-        form(action="/login", method="post")
-          div
-            label(for="username") Username:
-            input(type="text", name="username")
-          div
-            label(for="password") Password:
-            input(type="password", name="password")
-          div
-            input(type="submit", value="Login").btn.btn-primary
+      div.pure-u-1#main
+        div.content.l-centered
+          form.pure-form.pure-form-stacked(action="/login", method="post")
+            fieldset
+              label(for="username") Username
+              input#email(type="text", name="username", placeholder="Username")
 
-      div.center.spacer
-        a.btn(href="/register") New here?
+              label(for="password") Password
+              input#password(type="password", name="password", placeholder="Password")
 
-    include includes/footer
-    include includes/scripts
+              div.l-vbox
+                button.pure-button.pure-button-primary(type="submit") Sign in
+
+          p
+            a.pure-button(href="/register") New here?
+
+      include includes/footer
+      include includes/scripts

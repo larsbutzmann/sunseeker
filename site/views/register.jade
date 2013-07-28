@@ -4,10 +4,11 @@ html
     include includes/head
 
   body
-    include includes/header
+    div.pure-g-r#layout
 
-    div.container
-      div.center.spacer
+      include includes/header
+
+      div.pure-u-1#main
         - function isEmptyObject(obj) {
         -      var name;
         -      for (name in obj) {
@@ -16,26 +17,28 @@ html
         -      return true;
         -    }
         - if (isEmptyObject(errors) == false)
-          div.alert
-            button.btn.close(data-dismiss="alert")
+          div.header
             p
               strong The following errors occured!
             - each error in errors
               p #{error.msg}
 
-        form(action="/register", method="post")
-          div
-            label(for="username") Username:
-            input(type="text", name="username")
-          div
-            label(for="password") Password:
-            input(type="password", name="password")
-          div
-            label(for="password_confirmation") Confirm Password:
-            input(type="password", name="password_confirmation")
-          div
-            input(type="submit", value="Cancel").btn
-            input(type="submit", value="Register").btn.btn-primary
+        div.content.l-centered
 
-    include includes/footer
-    include includes/scripts
+          form.pure-form.pure-form-stacked(action="/register", method="post")
+            fieldset
+              label(for="username") Username
+              input(type="text", name="username", placeholder="Username")
+
+              label(for="password") Password
+              input(type="password", name="password", placeholder="Password")
+
+              label(for="password_confirmation") Confirm Password
+              input(type="password", name="password_confirmation", placeholder="Password")
+
+              div.l-vbox.l-centered
+                button.pure-button(type="submit") Cancel
+                button.pure-button.pure-button-primary(type="submit") Register
+
+      include includes/footer
+      include includes/scripts

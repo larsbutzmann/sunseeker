@@ -1,25 +1,26 @@
-div.navbar.navbar-inverse.navbar-static-top
-  div.navbar-inner
-    div.container
-      a.btn.btn-navbar(data-toggle="collapse", data-target=".nav-collapse")
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      a.brand(href="/") Sunseeker
-      div.nav-collapse.collapse.navbar-responsive-collapse
-        ul.nav
-          - var obj = { 'home':'Home', 'rate':'Rate' }
-            - each val, key in obj
-              - if (active == key)
-                li.active
-                  a(id="#{key}", href='javascript:void(0)') #{val}
-              - else
-                - if (user)
-                  li
-                    a(id="#{key}", href='javascript:void(0)') #{val}
-        - if (user)
-          ul.nav.pull-right
-            li
-              a(href='/logout') Logout
-          p.nav.navbar-text.pull-right Logged in as &nbsp;
-            strong #{user.username}
+a.pure-menu-link#menuLink(href="#menu")
+  img(src="/img/navicon-png2x.png", width="20", alt="Menu toggle")
+div.pure-u#menu
+  div.pure-menu.pure-menu-open
+    a.pure-menu-heading(href="/") Sunseeker
+    ul
+      div.l-vbox
+        div.pure-form
+          input.search-query#address(type="text", size="15", placeholder="Enter city")
+      - var obj = { 'home':'Home', 'rate':'Rate' }
+        - each val, key in obj
+          - if (active == key)
+            li.pure-menu-selected
+              a(id="#{key}", href='javascript:void(0)') #{val}
+          - else
+            - if (user)
+              li
+                a(id="#{key}", href='javascript:void(0)') #{val}
+
+
+    - if (user)
+      ul
+        li
+          a(href='/logout') Logout
+      p Logged in as &nbsp;
+        strong #{user.username}

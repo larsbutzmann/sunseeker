@@ -1,10 +1,11 @@
 var map,
-    geocoder;
+    geocoder,
+    pos;
 
 function initialize() {
     var mapOptions = {
-        zoom: 9,
-        minZoom: 7,
+        zoom: 7,
+        minZoom: 6,
         panControl: false,
         zoomControl: false,
         scaleControl: false,
@@ -22,13 +23,13 @@ function initialize() {
     // Try HTML5 geolocation
     if(navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            console.log(position);
-            var pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            // console.log(position);
+            pos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
             var image = {
                 url: 'img/iamhere.png',
-                size : new google.maps.Size(32, 32),
-                anchor: new google.maps.Point(16, 32)
+                size : new google.maps.Size(30, 30),
+                anchor: new google.maps.Point(16, 30)
             };
 
             var marker = new google.maps.Marker({
@@ -37,18 +38,6 @@ function initialize() {
                 title: 'My position',
                 icon: image
             });
-
-            // var iAmHere = {
-            //     strokeColor: '#0000FF',
-            //     strokeOpacity: 1,
-            //     strokeWeight: 10,
-            //     fillColor: '#0000FF',
-            //     fillOpacity: 1,
-            //     map: map,
-            //     center: pos,
-            //     radius: 100
-            // };
-            // cityCircle = new google.maps.Circle(iAmHere);
 
             map.setCenter(pos);
         }, function() {
@@ -59,7 +48,77 @@ function initialize() {
         handleNoGeolocation(false);
     }
 
+    loadWeatherData();
     setMarkers(map);
+}
+
+function loadWeatherData() {
+    var imgClear = {
+        url: 'img/icons/clear.png',
+        size : new google.maps.Size(50, 50),
+        anchor: new google.maps.Point(25, 25)
+    };
+
+    var imagePartlyCloudy = {
+        url: 'img/icons/partlycloudy.png',
+        size : new google.maps.Size(60, 60),
+        anchor: new google.maps.Point(30, 30)
+    };
+
+    var imagePartlySunny = {
+        url: 'img/icons/partlysunny.png',
+        size : new google.maps.Size(60, 60),
+        anchor: new google.maps.Point(30, 30)
+    };
+
+    var imageScatteredClouds = {
+        url: 'img/icons/scatteredclouds.png',
+        size : new google.maps.Size(60, 60),
+        anchor: new google.maps.Point(30, 30)
+    };
+
+    var imageCloudy = {
+        url: 'img/icons/cloudy.png',
+        size : new google.maps.Size(60, 60),
+        anchor: new google.maps.Point(30, 30)
+    };
+
+    var imageRain = {
+        url: 'img/icons/rain.png',
+        size : new google.maps.Size(50, 50),
+        anchor: new google.maps.Point(25, 25)
+    };
+
+    var imageTypes = {"NCD": imgClear, "SKC": imgClear, "CLR": imgClear,
+        "NSC": imgClear, "FEW": imagePartlyCloudy, "SCT": imagePartlySunny,
+        "BKN": imageScatteredClouds, "OVC": imageCloudy, "RAIN": imageRain
+    };
+
+    var seenStations = [];
+
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: "/data",
+        success: function (weatherData) {
+            for (var i = 0; i < weatherData.length; i++) {
+                var data = weatherData[i];
+                var metarData = parseMETAR(data.raw_text);
+                if (metarData.clouds === null && metarData.weather === null) {
+                    metarData.clouds = [{abbreviation: "CLR"}];
+                }
+                var myLatLng = new google.maps.LatLng(data.latitude, data.longitude);
+                if (!seenStations.in_array(data.station)) {
+                    var marker = new google.maps.Marker({
+                        position: myLatLng,
+                        map: map,
+                        icon: (metarData.weather === null) ? imageTypes[metarData.clouds[0].abbreviation] : imageTypes["RAIN"]
+                    });
+                }
+                seenStations.push_unique(metarData.station);
+            }
+        }
+    });
 }
 
 function addMarker() {
@@ -76,6 +135,7 @@ function addMarker() {
         var lng = event.latLng.lng();
         $("#myModal").modal();
         $(".box").click(function() {
+            console.log(this);
             type = this.innerHTML;
             $.ajax({
                 type: 'POST',
@@ -98,47 +158,29 @@ function addMarker() {
     });
 }
 
-var suns = [
-    [52.80, 13.08],
-    [52.60, 13.28],
-    [52.30, 12.98]
-];
-
 function setMarkers(map) {
 
     var image = {
         url: 'img/sun.png',
-        size : new google.maps.Size(64, 64),
-        anchor: new google.maps.Point(32, 32)
+        size : new google.maps.Size(60, 60),
+        anchor: new google.maps.Point(30, 30)
     };
 
-    for (var i = 0; i < suns.length; i++) {
-        var s = suns[i];
-        var myLatLng = new google.maps.LatLng(s[0], s[1]);
-        var marker = new google.maps.Marker({
-            position: myLatLng,
-            map: map,
-            cursor: myLatLng.toString(),
-            title: myLatLng.toString(),
-            icon: image
-        });
-    }
-
-    $.ajax({
-        type: 'GET',
-        url: "/api/weather",
-        success: function (data) {
-            for (var i = 0; i < data.length; i++) {
-                var s = data[i];
-                var myLatLng = new google.maps.LatLng(s.latitude, s.longitude);
-                var marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    icon: image
-                });
-            }
-        }
-    });
+    // $.ajax({
+    //     type: 'GET',
+    //     url: "/api/weather",
+    //     success: function (data) {
+    //         for (var i = 0; i < data.length; i++) {
+    //             var s = data[i];
+    //             var myLatLng = new google.maps.LatLng(s.latitude, s.longitude);
+    //             var marker = new google.maps.Marker({
+    //                 position: myLatLng,
+    //                 map: map,
+    //                 icon: image
+    //             });
+    //         }
+    //     }
+    // });
 }
 
 function handleNoGeolocation(errorFlag) {
@@ -180,6 +222,8 @@ $("#address").keyup(function(event){
     if(event.keyCode == 13){
         codeAddress();
         $("#address").blur();
+        $("#menuLink").click();
+        this.value = "";
     }
 });
 

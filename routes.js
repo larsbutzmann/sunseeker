@@ -1,23 +1,33 @@
 var passport = require('passport'),
-    api = require("./api.js");
-    UserModel = require('./model/user.js');
+  api = require("./api.js"),
+  UserModel = require('./model/user.js'),
+  XMLHttpRequest = require("./xmlhttprequest").XMLHttpRequest,
+  parseString = require('xml2js').parseString;
 
 module.exports = function (app) {
 
   function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) { return next(); }
-    res.redirect('/login')
+    res.redirect('/login');
   }
 
   app.get('/', ensureAuthenticated, function (req, res) {
     res.render('index', {
-      title: "Sunseeker",
       active: "home",
-      user: req.user});
+      user: req.user
+    });
+  });
+
+  app.get('/show', function (req, res) {
+    res.render('index', {
+      active: "home"
+    });
   });
 
   app.get('/register', function(req, res) {
-    res.render('register', { });
+    res.render('register', {
+      active: "home"
+    });
   });
 
   app.post('/register', function(req, res) {
@@ -44,8 +54,7 @@ module.exports = function (app) {
 
   app.get('/login', function(req, res) {
     res.render('login', {
-      active: "home",
-      user : req.user
+      active: "home"
     });
   });
 
@@ -62,7 +71,28 @@ module.exports = function (app) {
   });
 
   app.get('/debug', function(req, res) {
-    res.render('debug', { });
+    res.render('debug', {
+      active: "home"
+    });
+  });
+
+  app.get('/data', function(req, res) {
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function() {
+      if (this.readyState == 4) {
+        var options = {"explicitArray": false};
+        parseString(this.responseText, options, function (err, result) {
+          result = JSON.stringify(result.response.data.METAR);
+          res.setHeader('Content-Length', result.length);
+          res.setHeader("Content-Type", "application/json");
+          res.end(result);
+        });
+      }
+    };
+
+    xhr.open("GET", "http://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&stationString=~de&hoursBeforeNow=1");
+    xhr.send();
   });
 
   // API
