@@ -11,7 +11,8 @@ module.exports = function (app) {
     res.redirect('/login');
   }
 
-  app.get('/', ensureAuthenticated, function (req, res) {
+  // app.get('/', ensureAuthenticated, function (req, res) {
+  app.get('/', function (req, res) {
     res.render('index', {
       active: "home",
       user: req.user
