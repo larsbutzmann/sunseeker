@@ -12,6 +12,7 @@ var application_root = __dirname,
     passport = require('passport'),
     flash = require('connect-flash'),
     jade = require('jade'),
+    http = require('http'),
     LocalStrategy = require('passport-local').Strategy;
 
 var app = express();
@@ -57,6 +58,30 @@ passport.deserializeUser(UserModel.deserializeUser());
 
 // Setup routes
 require("./routes")(app);
+
+function startKeepAlive() {
+    setInterval(function() {
+        var options = {
+            host: 'sunseeker.herokuapp.com',
+            port: 80,
+            path: '/'
+        };
+        http.get(options, function(res) {
+            res.on('data', function(chunk) {
+                try {
+                    // optional logging... disable after it's working
+                    // console.log("HEROKU RESPONSE: " + chunk);
+                } catch (err) {
+                    console.log(err.message);
+                }
+            });
+        }).on('error', function(err) {
+            console.log("Error: " + err.message);
+        });
+    }, 60 * 30 * 1000); // load every 20 minutes
+}
+
+startKeepAlive();
 
 var port = process.env.PORT || 5000;
 app.listen(port, function() {
