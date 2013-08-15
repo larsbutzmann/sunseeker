@@ -98,7 +98,7 @@ module.exports = function (app) {
 
   // API
   app.get('/api', function (req, res) {
-    response.send('API is running');
+    res.send('API is running');
   });
   app.get('/api/weather', api.getWeather);
   app.post('/api/weather', api.postWeather);
