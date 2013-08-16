@@ -2,13 +2,13 @@ a.pure-menu-link#menuLink(href="#menu")
   img(src="/img/navicon-png2x.png", width="20", alt="Menu toggle")
 div.pure-u#menu
   div.pure-menu.pure-menu-open
-    a.pure-menu-heading(href="/") Sunseeker
+    a.pure-menu-heading(href="/") Sunradar
     ul
       - if (user)
         div.l-vbox
           div.pure-form
             input.search-query#address(type="text", size="15", placeholder="Enter city")
-      - var obj = { 'home':'Home', 'rate':'Rate' }
+      - var obj = { 'home':'Home', 'rate':'Rate', 'impressum': 'Impressum' }
         - each val, key in obj
           - if (active == key)
             li.pure-menu-selected

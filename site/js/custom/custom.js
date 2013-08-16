@@ -9,6 +9,11 @@ $("#rate").click(function() {
     $("#menuLink").click();
 });
 
+$("#impressum").click(function() {
+    $("#Impressum").modal();
+    $("#menuLink").click();
+});
+
 $(".box").click(function() {
     isSelected = this.getAttribute("selected");
     if (isSelected === "true") {
