@@ -1,0 +1,21 @@
+div.pure-u-1
+  div#about-modal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="AboutLabel", aria-hidden="true")
+    div.modal-header
+      h3#AboutLabel About
+
+    div.modal-body
+      p
+        span
+          strong Sunradar
+        span  has the goal to provide the most acurate real-time weather.
+      p To achieve that goal, different data source are integrated.
+      ul
+        li Live weather data from airports
+        li User submitted data (soon)
+        li Data from Deutscher Wetterdienst (soon)
+
+    div.modal-footer
+      div.pure-g-r
+        div.pure-u-1-1
+          div.l-box.l-centered
+            button.pure-button.pure-button-primary(type="button", data-dismiss="modal", aria-hidden="true") Back

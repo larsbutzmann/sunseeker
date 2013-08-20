@@ -5,12 +5,17 @@ setTimeout(function () {
 var l;
 
 $("#rate").click(function() {
-    $("#myModal").modal();
+    $("#rate-modal").modal();
     $("#menuLink").click();
 });
 
 $("#impressum").click(function() {
-    $("#Impressum").modal();
+    $("#impressum-modal").modal();
+    $("#menuLink").click();
+});
+
+$("#about").click(function() {
+    $("#about-modal").modal();
     $("#menuLink").click();
 });
 

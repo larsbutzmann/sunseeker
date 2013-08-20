@@ -1,17 +1,16 @@
 div.pure-u-1
-  div#Impressum.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="ImpressumLabel", aria-hidden="true")
+  div#impressum-modal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="ImpressumLabel", aria-hidden="true")
     div.modal-header
       h3#ImpressumLabel Impressum
 
     div.modal-body
-      h3 Lars Butzmann
+      h4 Lars Butzmann
       p Master Student IT Systems Engineering
+      p
+        a(href="http://de.linkedin.com/in/larsbutzmann") LinkedIn Profile
 
     div.modal-footer
       div.pure-g-r
-        div.pure-u-1-2
+        div.pure-u-1-1
           div.l-box.l-centered
-            button.pure-button(type="button", data-dismiss="modal", aria-hidden="true") Close
-        div.pure-u-1-2
-          div.l-box.l-centered
-            button.pure-button.pure-button-primary(type="button", data-dismiss="modal", aria-hidden="true") Submit
+            button.pure-button.pure-button-primary(type="button", data-dismiss="modal", aria-hidden="true") Back

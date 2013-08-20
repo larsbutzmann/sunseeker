@@ -5,7 +5,7 @@ var map,
 function initialize() {
     var mapOptions = {
         zoom: 7,
-        minZoom: 6,
+        minZoom: 5,
         panControl: false,
         zoomControl: false,
         scaleControl: false,
@@ -197,7 +197,7 @@ function handleNoGeolocation(errorFlag) {
 
     options = {
         map: map,
-        position: new google.maps.LatLng(53.5, 10),
+        position: new google.maps.LatLng(52.516, 13.389),
         content: content
     };
 

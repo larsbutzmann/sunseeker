@@ -1,10 +1,10 @@
 div.pure-u-1
-  div#myModal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="myModalLabel", aria-hidden="true")
+  div#rate-modal.modal.hide.fade(tabindex="-1", role="dialog", aria-labelledby="rateModalLabel", aria-hidden="true")
     div.modal-header
-      h3#myModalLabel Rate the Weather
+      h3#rateModalLabel Rate the Weather
 
     div.modal-body
-      div.pure-g-r
+      div.pure-g
         div.pure-u-1-4.l-centered(selected="false")
           div.box
             img.icon(src="img/icons/cloudy.png")
@@ -18,8 +18,9 @@ div.pure-u-1
           div.box
             img.icon(src="img/icons/clear.png")
 
+
     div.modal-footer
-      div.pure-g-r
+      div.pure-g
         div.pure-u-1-2
           div.l-box.l-centered
             button.pure-button(type="button", data-dismiss="modal", aria-hidden="true") Close
