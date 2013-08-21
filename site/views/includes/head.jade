@@ -1,10 +1,18 @@
 meta(charset="utf-8")
 title Sunradar
+// Mobile Specific Metas
 meta(name="author", content="Lars Butzmann")
 meta(name="viewport", content="width=device-width, initial-scale=1.0, maximum-scale=1")
 meta(name="description", content="The new platform for your weather")
 meta(name="apple-mobile-web-app-capable", content="yes")
 meta(name="apple-mobile-web-app-status-bar-style", content="black")
+
+// iPhone
+link(rel="apple-touch-startup-image", media="(device-width: 320px)", href="img/start-screen.png")
+link(rel="apple-touch-icon", href="img/icon.png")
+// iPhone Retina
+link(rel="apple-touch-startup-image", media="(device-width: 320px) and (-webkit-device-pixel-ratio: 2)", href="img/start-screen@2x.png")
+link(rel="apple-touch-icon", href="img/icon@2x.png")
 
 link(rel="stylesheet", href="css/pure-min.css")
 link(rel="stylesheet", href="css/modal.css")
@@ -17,6 +25,5 @@ script.
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', 'UA-42230705-2', 'herokuapp.com');
+  ga('create', 'UA-42230705-2', 'sunradar.de');
   ga('send', 'pageview');
-
