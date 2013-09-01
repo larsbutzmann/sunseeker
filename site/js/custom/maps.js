@@ -36,7 +36,8 @@ function initialize() {
                 position: pos,
                 map: map,
                 title: 'My position',
-                icon: image
+                icon: image,
+                zIndex: 100
             });
 
             map.setCenter(pos);
@@ -114,7 +115,8 @@ function loadWeatherData() {
                     var marker = new google.maps.Marker({
                         position: myLatLng,
                         map: map,
-                        icon: (metarData.weather === null) ? imageTypes[metarData.clouds[0].abbreviation] : imageTypes["RAIN"]
+                        icon: (metarData.weather === null) ? imageTypes[metarData.clouds[0].abbreviation] : imageTypes["RAIN"],
+                        zIndex: 1
                     });
                 }
                 seenStations.push_unique(data.station_id);
