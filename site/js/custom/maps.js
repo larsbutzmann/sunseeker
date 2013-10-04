@@ -2,6 +2,8 @@ var map,
     geocoder,
     pos;
 
+var lars;
+
 function initialize() {
     var mapOptions = {
         zoom: 7,
@@ -48,6 +50,24 @@ function initialize() {
         // Browser doesn't support Geolocation
         handleNoGeolocation(false);
     }
+
+    google.maps.event.addListener(map, 'dragend', function() {
+        console.log(map.getBounds());
+
+        var bounds = map.getBounds();
+        var neBound = bounds.getNorthEast();
+        var swBound = bounds.getSouthWest();
+        lars = map.getBounds();
+        $.ajax({
+            type: 'GET',
+            dataType: 'png',
+            url: "http://api.wunderground.com/api/17cf732ee8929251/radar/image.png?maxlat=" + neBound.lat() + "&maxlon=" + neBound.lng() + "&minlat=" + swBound.lat() + "&minlon=" + swBound.lng() + "&width=" + document.width + "&height=" + document.height,
+            success: function (radarImg) {
+                console.log(radarImg);
+                $("#radar").attr("src", radarImg);
+            }
+        });
+    });
 
     loadWeatherData();
     setMarkers(map);
