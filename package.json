@@ -12,7 +12,8 @@
     "passport-local-mongoose": ">= 0.2.4",
     "xml2js": ">= 0.2.8",
     "xmlhttprequest": ">= 1.6.0",
-    "connect-flash": ">= 0.1.1"
+    "connect-flash": ">= 0.1.1",
+    "request": ">= 1.2.32"
   },
   "engines": {
     "node": "0.10.x",

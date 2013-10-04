@@ -1,6 +1,7 @@
 var map,
     geocoder,
-    pos;
+    pos,
+    radarOverlay;
 
 var lars;
 
@@ -43,6 +44,7 @@ function initialize() {
             });
 
             map.setCenter(pos);
+            setRadar();
         }, function() {
             handleNoGeolocation(true);
         });
@@ -52,25 +54,30 @@ function initialize() {
     }
 
     google.maps.event.addListener(map, 'dragend', function() {
-        console.log(map.getBounds());
-
-        var bounds = map.getBounds();
-        var neBound = bounds.getNorthEast();
-        var swBound = bounds.getSouthWest();
-        lars = map.getBounds();
-        $.ajax({
-            type: 'GET',
-            dataType: 'png',
-            url: "http://api.wunderground.com/api/17cf732ee8929251/radar/image.png?maxlat=" + neBound.lat() + "&maxlon=" + neBound.lng() + "&minlat=" + swBound.lat() + "&minlon=" + swBound.lng() + "&width=" + document.width + "&height=" + document.height,
-            success: function (radarImg) {
-                console.log(radarImg);
-                $("#radar").attr("src", radarImg);
-            }
-        });
+        setRadar();
+    });
+    google.maps.event.addListener(map, 'zoom_changed', function() {
+        setRadar();
     });
 
-    loadWeatherData();
+    // loadWeatherData();
     setMarkers(map);
+}
+
+function setRadar() {
+    var bounds = map.getBounds();
+    var neBound = bounds.getNorthEast();
+    var swBound = bounds.getSouthWest();
+
+    // var url = "http://api.wunderground.com/api/17cf732ee8929251/radar/image.png?maxlat=" + neBound.lat() + "&maxlon=" + neBound.lng() + "&minlat=" + swBound.lat() + "&minlon=" + swBound.lng() + "&width=" + document.width + "&height=" + document.height;
+    var url2 = "http://radblast.wunderground.com/cgi-bin/radar/WUNIDS_composite?maxlat=" + neBound.lat() + "&maxlon=" + neBound.lng() + "&minlat=" + swBound.lat() + "&minlon=" + swBound.lng() + "&width=" + document.width + "&height=" + document.height + "&type=00Q&frame=0&num=1&delay=25&png=1&min=0&rainsnow=1&nodebug=0&brand=wundermap&smooth=1&noclutter=1&radar_bitmap=1";
+
+    if (typeof(radarOverlay) !== "undefined") {
+        radarOverlay.setMap(null);
+    }
+
+    radarOverlay = new google.maps.GroundOverlay(url2, bounds, {"opacity": 0.6});
+    radarOverlay.setMap(map);
 }
 
 function loadWeatherData() {

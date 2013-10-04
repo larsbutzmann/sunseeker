@@ -24,6 +24,7 @@ app.configure(function() {
   app.use(express.static(__dirname + '/site'));
   app.use(express.cookieParser());
   app.use(express.bodyParser());
+  app.locals.pretty = true;
   app.use(expressValidator());
   app.use(express.session({ secret: 'keyboard cat' }));
   app.use(passport.initialize());
@@ -78,7 +79,7 @@ function startKeepAlive() {
         }).on('error', function(err) {
             console.log("Error: " + err.message);
         });
-    }, 60 * 30 * 1000); // load every 20 minutes
+    }, 60 * 30 * 1000); // load every 30 minutes
 }
 
 startKeepAlive();
