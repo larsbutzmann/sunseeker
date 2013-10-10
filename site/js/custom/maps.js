@@ -56,7 +56,7 @@ function initialize() {
     google.maps.event.addListener(map, 'dragend', function() {
         setRadar();
     });
-    google.maps.event.addListener(map, 'zoom_changed', function() {
+    google.maps.event.addListener(map, 'zoom_changed', function(event) {
         setRadar();
     });
 
@@ -69,14 +69,14 @@ function setRadar() {
     var neBound = bounds.getNorthEast();
     var swBound = bounds.getSouthWest();
 
-    // var url = "http://api.wunderground.com/api/17cf732ee8929251/radar/image.png?maxlat=" + neBound.lat() + "&maxlon=" + neBound.lng() + "&minlat=" + swBound.lat() + "&minlon=" + swBound.lng() + "&width=" + document.width + "&height=" + document.height;
-    var url2 = "http://radblast.wunderground.com/cgi-bin/radar/WUNIDS_composite?maxlat=" + neBound.lat() + "&maxlon=" + neBound.lng() + "&minlat=" + swBound.lat() + "&minlon=" + swBound.lng() + "&width=" + document.width + "&height=" + document.height + "&type=00Q&frame=0&num=1&delay=25&png=1&min=0&rainsnow=1&nodebug=0&brand=wundermap&smooth=1&noclutter=1&radar_bitmap=1";
+    var url = "http://api.wunderground.com/api/17cf732ee8929251/radar/image.png?maxlat=" + neBound.lat() + "&maxlon=" + neBound.lng() + "&minlat=" + swBound.lat() + "&minlon=" + swBound.lng() + "&width=" + document.width + "&height=" + document.height;
+    // var url2 = "http://radblast.wunderground.com/cgi-bin/radar/WUNIDS_composite?maxlat=" + neBound.lat() + "&maxlon=" + neBound.lng() + "&minlat=" + swBound.lat() + "&minlon=" + swBound.lng() + "&width=" + document.width + "&height=" + document.height + "&type=00Q&frame=0&num=1&delay=25&png=1&min=0&rainsnow=1&nodebug=0&brand=wundermap&smooth=1&noclutter=1&radar_bitmap=1";
 
     if (typeof(radarOverlay) !== "undefined") {
         radarOverlay.setMap(null);
     }
 
-    radarOverlay = new google.maps.GroundOverlay(url2, bounds, {"opacity": 0.6});
+    radarOverlay = new google.maps.GroundOverlay(url, bounds, {"opacity": 0.6});
     radarOverlay.setMap(map);
 }
 
