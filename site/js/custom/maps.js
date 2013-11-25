@@ -31,8 +31,8 @@ function initialize() {
 
             var image = {
                 url: 'img/iamhere.png',
-                size : new google.maps.Size(30, 30),
-                anchor: new google.maps.Point(16, 30)
+                size : new google.maps.Size(33, 42),
+                anchor: new google.maps.Point(16, 33)
             };
 
             var marker = new google.maps.Marker({
