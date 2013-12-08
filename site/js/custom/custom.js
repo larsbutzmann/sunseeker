@@ -30,6 +30,10 @@ $(".box").click(function() {
     }
 });
 
+$("#submit-button").click(function() {
+    $(".box").css("background-color", "white");
+});
+
 $("#create-data").click(function() {
     addMarker();
 });
